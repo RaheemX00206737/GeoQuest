@@ -7,7 +7,7 @@ from .forms import CountrySearchForm
 # Create your views here.
 def home(request):
     form = CountrySearchForm(request.GET or None)  # Bind form with GET data if available
-    countries = None
+    countries = Country.objects.all() 
     if 'q' in request.GET:  # Check if there's a search query
         query = request.GET.get('q')
         countries = Country.objects.filter(name__icontains=query)

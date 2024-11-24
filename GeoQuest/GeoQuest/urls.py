@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('countries/', include('countries.urls')),  # Add the 'countries' app
     path('', root_redirect),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # This serves static files during development
 if settings.DEBUG:
