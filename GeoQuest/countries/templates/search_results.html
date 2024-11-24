@@ -1,28 +1,46 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search Results</title>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
     </head>
+
     <body>
-        <h1>Search Results</h1>
-        <form method="GET" action="{% url 'search_results' %}">
-            <input type="text" name="q" placeholder="Search for a country..." value="{{ request.GET.q }}">
-            <button type="submit">Search</button>
-        </form>
-    
-        <ul>
-            {% for country in countries %}
-            <li>
-                {% if country.flag_image %}
-                    <img src="{{ country.flag_image.url }}" alt="{{ country.name }} flag" style="width: 50px; height: 30;">
-                {% endif %}
-                {{ country.name }}
-            </li>
-            {% empty %}
-                <p>No results found.</p>
-            {% endfor %}
-        </ul>
+            <h1 class="text-center mb-4">Search Results</h1>
+            <div class="search-wrapper">
+                <form method="GET" action="{% url 'search_results' %}" class="mb-5 text-center">
+                {{ form|crispy }}    
+                    <input type="text" name="q" class="form-control mb-3" placeholder="Search for a country..." value="{{ request.GET.q }}">    
+                    <button type="submit" class="search-button">Search</button>
+                 </form>
+            </div>
+
+            <div class="container countries-list">
+                <div class="row">
+                    {% for country in countries %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        {% if country.flag_image %}
+                                            <img src="{{ country.flag_image.url }}" alt="{{ country.name }} flag" style="width: 50px; height: 30px; margin-right: 10px;">
+                                        {% endif %}
+                                        <h5 class="card-title">{{ country.name }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No countries found.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        
     </body>
 </html>
