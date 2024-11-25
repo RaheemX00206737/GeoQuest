@@ -104,6 +104,10 @@ body {
     max-width: 450px; 
     height: auto;    
     margin-bottom: 25px; 
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-
+.logo:hover {
+    transform: scale(1.05); 
+    opacity: 0.8;
+}
